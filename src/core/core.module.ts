@@ -1,22 +1,26 @@
 import { DynamicModule, Module, Type } from '@nestjs/common';
-import { ProductCreator } from './application/services/ProductCreator';
+import { ProductCreator } from './application/ProductCreator';
 import { CategoryService } from './domain/ports/services/CategoryService';
 import { ProductService } from './domain/ports/services/ProductService';
 
 export type CoreModuleOptions = {
   modules: Type[];
-  productService: Type<ProductService>;
-  categoryService: Type<CategoryService>;
+  adapters?: {
+    productService: Type<ProductService>;
+    categoryService: Type<CategoryService>;
+  }
 }
 
 @Module({})
 export class CoreModule {
 
-  static register({ modules, productService, categoryService }: CoreModuleOptions): DynamicModule {
+  static register({ modules, adapters }: CoreModuleOptions): DynamicModule {
+
+    const { productService, categoryService } = adapters
     /**
      * use case ProductCreator provider
      */
-    const productCreatroProvider = {
+    const productCreatorProvider = {
       provide: ProductCreator,
       useFactory(product: ProductService, category: CategoryService) {
         return new ProductCreator(product, category)
@@ -30,9 +34,11 @@ export class CoreModule {
         ...modules
       ],
       providers: [
-        productCreatroProvider
+        productCreatorProvider,
       ],
-      exports: [ProductCreator],
+      exports: [
+        ProductCreator
+      ],
     }
   }
 

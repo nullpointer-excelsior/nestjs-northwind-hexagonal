@@ -1,8 +1,8 @@
-import { CategoryService } from "../../domain/ports/services/CategoryService";
-import { Category } from '../../domain/entities/Category';
-import { ProductService } from "../../domain/ports/services/ProductService";
+import { CategoryService } from "../domain/ports/services/CategoryService";
+import { Category } from '../domain/entities/Category';
+import { ProductService } from "../domain/ports/services/ProductService";
 import { ProductCreator } from "./ProductCreator";
-import { InvalidCategoryError } from "../error/InvalidCategoryError";
+import { InvalidCategoryError } from "../shared/error/InvalidCategoryError";
 
 describe('ProductCreator', () => {
 
