@@ -4,7 +4,7 @@ import { CategoryService } from './domain/ports/services/CategoryService';
 import { ProductService } from './domain/ports/services/ProductService';
 
 export type CoreModuleOptions = {
-  module: Type;
+  modules: Type[];
   productService: Type<ProductService>;
   categoryService: Type<CategoryService>;
 }
@@ -12,7 +12,7 @@ export type CoreModuleOptions = {
 @Module({})
 export class CoreModule {
 
-  static register({ module, productService, categoryService }: CoreModuleOptions): DynamicModule {
+  static register({ modules, productService, categoryService }: CoreModuleOptions): DynamicModule {
     /**
      * use case ProductCreator provider
      */
@@ -27,7 +27,7 @@ export class CoreModule {
     return {
       module: CoreModule,
       imports: [
-        module
+        ...modules
       ],
       providers: [
         productCreatroProvider
