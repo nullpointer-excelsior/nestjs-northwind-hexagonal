@@ -2,15 +2,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { ProductCreator } from '../src/core/application/ProductCreator';
-import { PRODUCT_CREATOR } from '../src/core/injection.tokens';
+import { ProductApplication } from '../src/core/application/ProductApplication';
+import { PRODUCT_APPLICATION } from '../src/core/core.constants';
 import { CreateProductRequest } from '../src/infraestructure/http-server/model/create-product.request';
-import { ProductCreatorError } from '../src/core/shared/error/ProductCreatorError';
+import { ProductApplicationError } from '../src/core/shared/error/ProductApplicationError';
 
 function ProductCreatorMock(fn: any) {
   return {
-    create: fn
-  } as ProductCreator
+    createProduct: fn
+  } as ProductApplication
 }
 
 describe('AppController (e2e)', () => {
@@ -24,7 +24,7 @@ describe('AppController (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
-      .overrideProvider(PRODUCT_CREATOR)
+      .overrideProvider(PRODUCT_APPLICATION)
       .useValue(mock)
       .compile();
 
@@ -50,7 +50,7 @@ describe('AppController (e2e)', () => {
 
     const errorMessage = 'Category(id=100) Invalid'
     
-    const mock = ProductCreatorMock(jest.fn().mockRejectedValue(new ProductCreatorError(errorMessage)))
+    const mock = ProductCreatorMock(jest.fn().mockRejectedValue(new ProductApplicationError(errorMessage)))
     
     const body: CreateProductRequest = {
       name: 'dummy',
@@ -65,7 +65,7 @@ describe('AppController (e2e)', () => {
 
     const moduleFixture: TestingModule = await Test
       .createTestingModule({ imports: [AppModule] })
-      .overrideProvider(PRODUCT_CREATOR)
+      .overrideProvider(PRODUCT_APPLICATION)
       .useValue(mock)
       .compile();
 
@@ -84,7 +84,7 @@ describe('AppController (e2e)', () => {
 
     const errorMessage = 'Supplier(id=100) Invalid'
     
-    const mock = ProductCreatorMock(jest.fn().mockRejectedValue(new ProductCreatorError(errorMessage)))
+    const mock = ProductCreatorMock(jest.fn().mockRejectedValue(new ProductApplicationError(errorMessage)))
     
     const body: CreateProductRequest = {
       name: 'dummy',
@@ -99,7 +99,7 @@ describe('AppController (e2e)', () => {
   
     const moduleFixture: TestingModule = await Test
       .createTestingModule({ imports: [AppModule] })
-      .overrideProvider(PRODUCT_CREATOR)
+      .overrideProvider(PRODUCT_APPLICATION)
       .useValue(mock)
       .compile();
   

@@ -10,7 +10,7 @@ export class ProductServiceAdapter implements ProductService {
 
     constructor(@InjectRepository(ProductEntity) private repository: Repository<ProductEntity>) { }
 
-    async create(p: Product) {
+    async save(p: Product) {
         return this.repository.save(p)
     }
 

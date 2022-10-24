@@ -1,12 +1,12 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { ProductCreatorError } from '../../../core/shared/error/ProductCreatorError';
+import { ProductApplicationError } from '../../../core/shared/error/ProductApplicationError';
 
 
-@Catch(ProductCreatorError)
+@Catch(ProductApplicationError)
 export class ProductCreatorFilter implements ExceptionFilter {
 
-    catch(exception: ProductCreatorError, host: ArgumentsHost) {
+    catch(exception: ProductApplicationError, host: ArgumentsHost) {
         
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
