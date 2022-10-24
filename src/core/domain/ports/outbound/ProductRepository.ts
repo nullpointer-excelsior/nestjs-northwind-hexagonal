@@ -1,6 +1,6 @@
 import { Product } from "../../entities/Product";
 
-export interface ProductService {
+export interface ProductRepository {
 
     save(product: Product): Promise<Product>;
 

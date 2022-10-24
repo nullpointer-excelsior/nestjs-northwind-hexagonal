@@ -1,12 +1,12 @@
-import { CategoryService } from "../domain/ports/services/CategoryService";
 import { Category } from '../domain/entities/Category';
-import { ProductService } from "../domain/ports/services/ProductService";
 import { ProductApplication } from "./ProductApplication";
-import { SupplierService } from "../domain/ports/services/SupplierService";
 import { Supplier } from "../domain/entities/Supplier";
 import { ProductApplicationService } from "./ProductApplicationService";
 import { Product } from "../domain/entities/Product";
 import { ProductApplicationError } from "../shared/error/ProductApplicationError";
+import { ProductService } from '../domain/ports/inbound/ProductService';
+import { CategoryService } from '../domain/ports/inbound/CategoryService';
+import { SupplierService } from '../domain/ports/inbound/SupplierService';
 
 function ProductServiceMock(productId: any): ProductService {
   const product = { 
@@ -14,13 +14,15 @@ function ProductServiceMock(productId: any): ProductService {
     productName: 'Pasta italiana'
   } as Product
   return { 
-    save: jest.fn().mockReturnValue(Promise.resolve(product)) 
+    save: jest.fn().mockReturnValue(Promise.resolve(product)),
+    validateProductPrice: jest.fn().mockReturnValue(true)
   }
 }
 
 function CategoryServiceMock(returnValue: any): CategoryService {
   return { 
-    findById: jest.fn().mockReturnValue(Promise.resolve(returnValue)) 
+    findById: jest.fn().mockReturnValue(Promise.resolve(returnValue)),
+    findAll: jest.fn().mockReturnValue([])
   }
 }
 
