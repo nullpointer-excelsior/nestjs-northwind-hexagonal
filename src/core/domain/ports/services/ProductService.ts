@@ -2,6 +2,6 @@ import { Product } from "../../entities/Product";
 
 export interface ProductService {
 
-    create(product: Product): Promise<Product>;
+    save(product: Product): Promise<Product>;
 
 }

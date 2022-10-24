@@ -1,9 +1,9 @@
 import { DynamicModule, Module, Type } from '@nestjs/common';
-import { ProductCreatorApplication } from './application/ProductCreatorApplication';
+import { ProductApplicationService } from './application/ProductApplicationService';
 import { CategoryService } from './domain/ports/services/CategoryService';
 import { ProductService } from './domain/ports/services/ProductService';
 import { SupplierService } from './domain/ports/services/SupplierService';
-import { PRODUCT_CREATOR } from './injection.tokens';
+import { PRODUCT_APPLICATION } from './core.constants';
 
 export type CoreModuleOptions = {
   modules: Type[];
@@ -23,10 +23,10 @@ export class CoreModule {
     /**
      * use case ProductCreator provider
      */
-    const productCreatorProvider = {
-      provide: PRODUCT_CREATOR,
-      useFactory(product: ProductService, category: CategoryService, supplierService: SupplierService) {
-        return new ProductCreatorApplication(product, category, supplierService)
+    const ProductApplicationProvider = {
+      provide: PRODUCT_APPLICATION,
+      useFactory(product: ProductService, category: CategoryService, supplier: SupplierService) {
+        return new ProductApplicationService(product, category, supplier)
       },
       inject: [
         productService, 
@@ -41,10 +41,10 @@ export class CoreModule {
         ...modules
       ],
       providers: [
-        productCreatorProvider,
+        ProductApplicationProvider,
       ],
       exports: [
-        PRODUCT_CREATOR
+        PRODUCT_APPLICATION
       ],
     }
   }

@@ -1,1 +1,0 @@
-export const PRODUCT_CREATOR = 'PRODUCT_CREATOR'
