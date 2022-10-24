@@ -2,11 +2,11 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Supplier } from "../../core/domain/entities/Supplier";
-import { SupplierService } from "../../core/domain/ports/services/SupplierService";
+import { SupplierRepository } from "../../core/domain/ports/outbound/SupplierRepository";
 import { SupplierEntity } from "../northwind-database/entities/supplier.entity";
 
 @Injectable()
-export class SupplierServiceAdapter implements SupplierService {
+export class SupplierRepositoryAdapter implements SupplierRepository {
 
     constructor(@InjectRepository(SupplierEntity) private repository: Repository<SupplierEntity>) { }
 

@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Post, UseFilters } from "@nestjs/common";
 import { ProductApplication } from "../../../core/application/ProductApplication";
-import { PRODUCT_APPLICATION } from "../../../core/core.constants";
+import { PRODUCT_APPLICATION } from "../../../core/core.module";
 import { AppLogger } from "../../shared/AppLogger";
 import { ProductCreatorFilter } from "../exception-filters/product-exception.filter";
 import { AppResponse } from "../model/app.response";
