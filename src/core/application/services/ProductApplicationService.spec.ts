@@ -1,12 +1,12 @@
-import { Category } from '../domain/entities/Category';
-import { ProductApplication } from "./ProductApplication";
-import { Supplier } from "../domain/entities/Supplier";
+import { Category } from '../../domain/entities/Category';
+import { ProductApplication } from "../ProductApplication";
+import { Supplier } from "../../domain/entities/Supplier";
 import { ProductApplicationService } from "./ProductApplicationService";
-import { Product } from "../domain/entities/Product";
-import { ProductApplicationError } from "../shared/error/ProductApplicationError";
-import { ProductService } from '../domain/ports/inbound/ProductService';
-import { CategoryService } from '../domain/ports/inbound/CategoryService';
-import { SupplierService } from '../domain/ports/inbound/SupplierService';
+import { Product } from "../../domain/entities/Product";
+import { ProductApplicationError } from "../../shared/error/ProductApplicationError";
+import { ProductService } from '../../domain/ports/inbound/ProductService';
+import { CategoryService } from '../../domain/ports/inbound/CategoryService';
+import { SupplierService } from '../../domain/ports/inbound/SupplierService';
 
 function ProductServiceMock(productId: any): ProductService {
   const product = { 

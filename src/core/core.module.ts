@@ -1,5 +1,5 @@
 import { DynamicModule, Module, Type } from '@nestjs/common';
-import { ProductApplicationService } from './application/ProductApplicationService';
+import { ProductApplicationService } from './application/services/ProductApplicationService';
 import { CategoryRepository } from './domain/ports/outbound/CategoryRepository';
 import { ProductRepository } from './domain/ports/outbound/ProductRepository';
 import { SupplierRepository } from './domain/ports/outbound/SupplierRepository';

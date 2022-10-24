@@ -1,10 +1,10 @@
-import { Product } from "../domain/entities/Product"
-import { CategoryService } from "../domain/ports/inbound/CategoryService"
-import { ProductService } from "../domain/ports/inbound/ProductService"
-import { SupplierService } from "../domain/ports/inbound/SupplierService"
-import { NewProductDTO } from "../shared/dto/NewProductDTO"
-import { ProductApplicationError } from "../shared/error/ProductApplicationError"
-import { ProductApplication } from "./ProductApplication"
+import { Product } from "../../domain/entities/Product"
+import { CategoryService } from "../../domain/ports/inbound/CategoryService"
+import { ProductService } from "../../domain/ports/inbound/ProductService"
+import { SupplierService } from "../../domain/ports/inbound/SupplierService"
+import { NewProductDTO } from "../../shared/dto/NewProductDTO"
+import { ProductApplicationError } from "../../shared/error/ProductApplicationError"
+import { ProductApplication } from "../ProductApplication"
 
 export class ProductApplicationService implements ProductApplication {
 
