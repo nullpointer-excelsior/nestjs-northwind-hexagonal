@@ -3,9 +3,9 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { ProductApplication } from '../src/core/application/ProductApplication';
-import { PRODUCT_APPLICATION } from '../src/core/core.constants';
 import { CreateProductRequest } from '../src/infraestructure/http-server/model/create-product.request';
 import { ProductApplicationError } from '../src/core/shared/error/ProductApplicationError';
+import { PRODUCT_APPLICATION } from '../src/core/core.module';
 
 function ProductCreatorMock(fn: any) {
   return {
@@ -13,7 +13,7 @@ function ProductCreatorMock(fn: any) {
   } as ProductApplication
 }
 
-describe('AppController (e2e)', () => {
+describe('ProductController (e2e)', () => {
 
   let app: INestApplication;
 
