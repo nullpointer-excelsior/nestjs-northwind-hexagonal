@@ -1,7 +1,7 @@
 import { Body, Controller, Inject, Post, UseFilters } from "@nestjs/common";
 import { ProductApplication } from "../../../core/application/ProductApplication";
 import { PRODUCT_APPLICATION } from "../../../core/core.module";
-import { AppLogger } from "../../shared/AppLogger";
+import { Log } from "../../shared/Log";
 import { ProductCreatorFilter } from "../exception-filters/product-exception.filter";
 import { AppResponse } from "../model/app.response";
 import { CreateProductRequest } from "../model/create-product.request";
@@ -16,7 +16,7 @@ export class ProductController {
     @Post()
     async createProduct(@Body() request: CreateProductRequest): Promise<AppResponse> {
         
-        AppLogger.log(`(POST) Create product`, request)
+        Log.info(`(POST) Create product`, request)
         const productId = await this.application.createProduct(request) 
         
         return {

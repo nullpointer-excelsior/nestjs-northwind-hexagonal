@@ -5,10 +5,12 @@ import { CategoryRepositoryAdapter } from './adapters/category.repository.adapte
 import { ProductRepositoryAdapter } from './adapters/product.repository.adapter';
 import { SupplierRepositoryAdapter } from './adapters/supplier.repository.adapter';
 import { ProductController } from './http-server/controllers/product.controller';
+import { RootController } from './http-server/controllers/root.controller';
 import { CategoryEntity } from './northwind-database/entities/category.entity';
 import { ProductEntity } from './northwind-database/entities/product.entity';
 import { SupplierEntity } from './northwind-database/entities/supplier.entity';
 import { NorthwindDatabaseModule } from './northwind-database/northwind-database.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
     providers: [
@@ -23,6 +25,7 @@ import { NorthwindDatabaseModule } from './northwind-database/northwind-database
     ],
     imports: [
         NorthwindDatabaseModule,
+        SharedModule,
         CoreModule.register({
             modules: [
                InfraestructureModule
@@ -40,7 +43,8 @@ import { NorthwindDatabaseModule } from './northwind-database/northwind-database
         ])
     ],
     controllers:[
-        ProductController
+        ProductController,
+        RootController
     ]
 })
 export class InfraestructureModule {}
