@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    container_name: northwind-db
+    image: postgres:13
+    environment:
+      POSTGRES_DB: northwind
+      POSTGRES_USER: northwind
+      POSTGRES_PASSWORD: northwind
+    volumes:
+      - postgresql_bin:/usr/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+      - ./northwind.sql:/docker-entrypoint-initdb.d/northwind.sql
+      - ./files:/files
+    ports:
+      - 5432:5432
+    networks:
+      - db
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  pgadmin_root_prefs:
+    driver: local
+  postgresql_data:
+    driver: local
+  postgresql_bin:
+    driver: local

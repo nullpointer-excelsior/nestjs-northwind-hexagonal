@@ -1,0 +1,6 @@
+{
+  "name": "guitar",
+  "price": 1000,
+  "categoryId": 1,
+  "supplierId": 1
+}
