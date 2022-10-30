@@ -23,7 +23,7 @@ export class ProductApplicationService implements ProductApplication {
         if (!supplier) {
             throw new ProductApplicationError(`Proveedor no encontrado id=${newProduct.supplierId}`)
         }
-        const entity = Product.create(newProduct.name, category, supplier)
+        const entity = Product.create(newProduct.name, newProduct.price, category, supplier)
         const saved = await this.product.save(entity)
         return saved.productId
     }

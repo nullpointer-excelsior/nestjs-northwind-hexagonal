@@ -18,11 +18,15 @@ export class ProductEntity {
     unitsOnOrder: number;
     @Column({ default: false })
     discontinued: boolean;
-    @ManyToOne(() => CategoryEntity)
-    @JoinColumn({ name: "category_id" })
+    @JoinColumn({ name: "category_id", })
+    @ManyToOne(() => CategoryEntity, (category: CategoryEntity) => category.products)
     category: CategoryEntity;
-    @ManyToOne(() => SupplierEntity)
+    @Column({ name: "category_id" })
+    categoryId: number;
     @JoinColumn({ name: "supplier_id" })
+    @ManyToOne(() => SupplierEntity,(supplier: SupplierEntity) => supplier.products)
     supplier: SupplierEntity;
+    @Column({ name: "supplier_id" })
+    supplierId: number;
     
 }
