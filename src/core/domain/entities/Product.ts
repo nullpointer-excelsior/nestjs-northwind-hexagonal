@@ -13,7 +13,7 @@ export class Product {
     unitsOnOrder: number;
     discontinued: boolean;
 
-    static create(name: string, price: number, category: Category, supplier: Supplier) {
+    static create(name: string, price: number, category: Category, supplier: Supplier): Product {
         const product = new Product()
         product.productName = name
         product.unitPrice = price

@@ -42,8 +42,8 @@ export class CoreModule {
       },
       inject: [
         PRODUCT_SERVICE,
+        CATEGORY_SERVICE,
         SUPPLIER_SERVICE,
-        CATEGORY_SERVICE
       ]
     }
 

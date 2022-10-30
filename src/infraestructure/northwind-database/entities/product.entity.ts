@@ -21,12 +21,8 @@ export class ProductEntity {
     @JoinColumn({ name: "category_id", })
     @ManyToOne(() => CategoryEntity, (category: CategoryEntity) => category.products)
     category: CategoryEntity;
-    @Column({ name: "category_id" })
-    categoryId: number;
     @JoinColumn({ name: "supplier_id" })
     @ManyToOne(() => SupplierEntity,(supplier: SupplierEntity) => supplier.products)
     supplier: SupplierEntity;
-    @Column({ name: "supplier_id" })
-    supplierId: number;
-    
+
 }
