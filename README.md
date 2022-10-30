@@ -33,6 +33,7 @@ Si la aplicación levanto exitosamente crear el siguiente archivo `newProduct.js
 ```json
 {
   "name": "Quesito la vaquita",
+  "price": 2990,
   "categoryId": 1,
   "supplierId": 1
 }
