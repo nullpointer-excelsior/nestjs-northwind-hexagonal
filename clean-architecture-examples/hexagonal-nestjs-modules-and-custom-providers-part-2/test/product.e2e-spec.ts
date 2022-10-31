@@ -34,6 +34,7 @@ describe('ProductController (e2e)', () => {
     const body: CreateProductRequest = {
       name: 'dummy',
       categoryId: 1,
+      price: 1000,
       supplierId: 1
     }
     return request(app.getHttpServer())
@@ -55,6 +56,7 @@ describe('ProductController (e2e)', () => {
     const body: CreateProductRequest = {
       name: 'dummy',
       categoryId: 100,
+      price: 1000,
       supplierId: 100
     }
 
@@ -89,6 +91,7 @@ describe('ProductController (e2e)', () => {
     const body: CreateProductRequest = {
       name: 'dummy',
       categoryId: 1,
+      price: 100,
       supplierId: 100
     }
 
