@@ -44,7 +44,7 @@ describe('ProductApplicationService', () => {
 
     service = new ProductApplicationService(productMock, categoryMock, supplierMock)
 
-    const result = await service.createProduct({ name: 'product1', categoryId: 1, supplierId: 1})
+    const result = await service.createProduct({ name: 'product1', categoryId: 1, supplierId: 1, price: 100})
 
     expect(productMock.save).toBeCalled()
     expect(result).toBe(1)
@@ -59,7 +59,7 @@ describe('ProductApplicationService', () => {
 
     service = new ProductApplicationService(productMock, categoryMock, supplierMock)
 
-    await expect(service.createProduct({ name: 'quesito', categoryId: 1, supplierId: 1})).rejects.toThrow(ProductApplicationError);
+    await expect(service.createProduct({ name: 'quesito', categoryId: 1, supplierId: 1, price: 100})).rejects.toThrow(ProductApplicationError);
     expect(productMock.save).not.toBeCalled()
 
   });
@@ -72,7 +72,7 @@ describe('ProductApplicationService', () => {
 
     service = new ProductApplicationService(productMock, categoryMock, supplierMock)
 
-    await expect(service.createProduct({ name: 'paltita', categoryId: 1, supplierId: 1})).rejects.toThrow(ProductApplicationError);
+    await expect(service.createProduct({ name: 'paltita', categoryId: 1, supplierId: 1, price: 100})).rejects.toThrow(ProductApplicationError);
     expect(productMock.save).not.toBeCalled()
 
   });

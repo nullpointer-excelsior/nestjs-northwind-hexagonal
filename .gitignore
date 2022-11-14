@@ -35,3 +35,5 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 northwind-db/files
+
+clean-architecture-examples/part-3-domain-full-design-with-ddd/node_modules
