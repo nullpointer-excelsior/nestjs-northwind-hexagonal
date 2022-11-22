@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PostgresProductRepository } from "../../../persistence/repositories/postgres-product.repository";
+import { PostgresProductRepository } from "../../../infraestructure/persistence/repositories/postgres-product.repository";
 import { Product } from "../../domain/entities/Product";
 import { SearchProducts } from "../SearchProducts";
 

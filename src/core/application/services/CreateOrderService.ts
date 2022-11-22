@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { EntityManager } from "typeorm";
-import { TransactionProvider } from "../../../persistence/northwind-database/providers/transaction.provider";
-import { PostgresOrdersRepository } from "../../../persistence/repositories/postgres-orders.repository";
+import { TransactionProvider } from "../../../infraestructure/persistence/northwind-database/providers/transaction.provider";
+import { PostgresOrdersRepository } from "../../../infraestructure/persistence/repositories/postgres-orders.repository";
 import { Order } from "../../domain/entities/Order";
 import { CreateOrderDto } from "../../shared/dto/CreateOrderDto";
 

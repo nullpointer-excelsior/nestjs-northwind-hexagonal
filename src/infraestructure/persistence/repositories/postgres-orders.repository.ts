@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EntityManager, Repository } from "typeorm";
-import { Order } from "../../core/domain/entities/Order";
-import { CreateOrderDto, OrderDetailsDto } from "../../core/shared/dto/CreateOrderDto";
+import { Order } from "../../../core/domain/entities/Order";
+import { CreateOrderDto, OrderDetailsDto } from "../../../core/shared/dto/CreateOrderDto";
 import { OrderDetailsEntity } from "../northwind-database/entities/order-details.entity";
 import { OrdersEntity } from "../northwind-database/entities/orders.entity";
 

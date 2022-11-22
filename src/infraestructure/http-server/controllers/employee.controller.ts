@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Param } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { SearchEmployeeService } from "../../core/application/services/SearchEmployeeService";
-import { Employee } from "../../core/domain/entities/Employee";
+import { SearchEmployeeService } from "../../../core/application/services/SearchEmployeeService";
+import { Employee } from "../../../core/domain/entities/Employee";
 
 
 @ApiTags('Employees')

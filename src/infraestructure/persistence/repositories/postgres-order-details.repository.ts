@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EntityManager } from "typeorm";
-import { OrderDetailsDto } from "../../core/shared/dto/CreateOrderDto";
+import { OrderDetailsDto } from "../../../core/shared/dto/CreateOrderDto";
 import { OrderDetailsEntity } from "../northwind-database/entities/order-details.entity";
 
 @Injectable()

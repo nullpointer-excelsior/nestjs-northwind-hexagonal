@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { CoreModule } from "../core/core.module";
+import { CoreModule } from "../../core/core.module";
 import { CategoryController } from "./controllers/category.controller";
 import { CustomerController } from "./controllers/customer.controller";
 import { EmployeeController } from "./controllers/employee.controller";

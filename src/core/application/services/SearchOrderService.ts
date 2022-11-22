@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PostgresOrdersRepository } from "../../../persistence/repositories/postgres-orders.repository";
+import { PostgresOrdersRepository } from "../../../infraestructure/persistence/repositories/postgres-orders.repository";
 import { Order } from "../../domain/entities/Order";
 
 @Injectable()

@@ -2,8 +2,8 @@ import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { generateSwaggerDocs } from './http-server/utils/generate-swagger-docs';
-import { ServerConfig } from './shared/config/server.config';
+import { generateSwaggerDocs } from './infraestructure/http-server/utils/generate-swagger-docs';
+import { ServerConfig } from './infraestructure/shared/config/server.config';
 
 function getServerConfig(app: INestApplication): ServerConfig {
   const config: ConfigService = app.get(ConfigService)

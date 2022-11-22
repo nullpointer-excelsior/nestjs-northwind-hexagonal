@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PostgresShipperRepository } from "../../../persistence/repositories/postgres-shipper.repository";
+import { PostgresShipperRepository } from "../../../infraestructure/persistence/repositories/postgres-shipper.repository";
 import { Shipper } from "../../domain/entities/Shipper";
 
 @Injectable()

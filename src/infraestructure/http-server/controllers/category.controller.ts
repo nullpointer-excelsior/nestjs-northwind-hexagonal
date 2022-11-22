@@ -1,6 +1,6 @@
 import { Controller, Get, Inject } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { SearchCategoriesService } from "../../core/application/services/SearchCategoriesService";
+import { SearchCategoriesService } from "../../../core/application/services/SearchCategoriesService";
 import { AppResponse } from "../model/app.response";
 
 

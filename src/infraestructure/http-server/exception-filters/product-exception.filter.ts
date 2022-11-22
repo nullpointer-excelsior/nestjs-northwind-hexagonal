@@ -1,6 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { ProductApplicationError } from '../../core/shared/error/ProductApplicationError';
+import { ProductApplicationError } from '../../../core/shared/error/ProductApplicationError';
 
 
 @Catch(ProductApplicationError)

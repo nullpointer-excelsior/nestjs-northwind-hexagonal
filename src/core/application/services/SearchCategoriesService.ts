@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PostgresCategoryRepository } from "../../../persistence/repositories/postgres-category.repository";
+import { PostgresCategoryRepository } from "../../../infraestructure/persistence/repositories/postgres-category.repository";
 import { Category } from "../../domain/entities/Category";
 
 @Injectable()

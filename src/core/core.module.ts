@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PersistenceModule } from '../persistence/persistence.module';
+import { PersistenceModule } from '../infraestructure/persistence/persistence.module';
 import { SearchEmployeeService } from './application/services/SearchEmployeeService';
 import { SearchOrderService } from './application/services/SearchOrderService';
 import { SearchCategoriesService } from './application/services/SearchCategoriesService';
