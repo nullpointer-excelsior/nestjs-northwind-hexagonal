@@ -1,13 +1,13 @@
 import { Controller, Get, Inject, UseFilters } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { SearchProductsService } from "../../../core/application/services/SearchProductsService";
-import { ProductCreatorFilter } from "../exception-filters/product-exception.filter";
+import { GlobalExceptionFilter } from "../exception-filters/global-exception.filter";
 import { AppResponse } from "../model/app.response";
 
 
 @ApiTags('Products')
 @Controller('/product')
-@UseFilters(ProductCreatorFilter)
+@UseFilters(GlobalExceptionFilter)
 export class ProductController {
 
     constructor(private search: SearchProductsService) {}

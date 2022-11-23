@@ -73,6 +73,9 @@ export class PostgresOrdersRepository {
 
         return this.repository
             .createQueryBuilder('order')
+            .leftJoinAndSelect('order.shipper', 'shipper')
+            .leftJoinAndSelect('order.customer', 'customer')
+            .leftJoinAndSelect('order.employee', 'employee')
             .leftJoinAndSelect('order.orderDetails', 'orderDetails')
             .leftJoinAndSelect('orderDetails.product', 'products')
             .getMany()
@@ -85,6 +88,7 @@ export class PostgresOrdersRepository {
             .createQueryBuilder('order').select('MAX(order.orderId)', 'max')
             .getRawOne()
             .then(raw => raw.max)
+            
     }
 
 }

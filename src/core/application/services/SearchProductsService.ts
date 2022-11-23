@@ -1,10 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { PostgresProductRepository } from "../../../infraestructure/persistence/repositories/postgres-product.repository";
 import { Product } from "../../domain/entities/Product";
-import { SearchProducts } from "../SearchProducts";
 
 @Injectable()
-export class SearchProductsService implements SearchProducts {
+export class SearchProductsService {
 
 	constructor(private readonly repository: PostgresProductRepository) {}
 	
