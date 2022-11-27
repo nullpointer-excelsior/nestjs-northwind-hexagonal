@@ -1,12 +1,11 @@
 import { Module } from "@nestjs/common";
 import { CoreModule } from "../../core/core.module";
-import { CategoryController } from "./controllers/category.controller";
-import { CustomerController } from "./controllers/customer.controller";
-import { EmployeeController } from "./controllers/employee.controller";
-import { OrderController } from "./controllers/order.controller";
-import { ProductController } from "./controllers/product.controller";
+import { CustomerPortfolioController } from "./controllers/customer-portfolio.controller";
+import { CompanyController } from "./controllers/company.controller";
+import { PurchaseController } from "./controllers/purchase.controller";
+import { CatalogController } from "./controllers/catalog.controller";
 import { RootController } from "./controllers/root.controller";
-import { ShipperController } from "./controllers/shipper.controller";
+import { ShipperController } from "./controllers/company-suppliers.controller";
 
 @Module({
     imports: [
@@ -14,12 +13,11 @@ import { ShipperController } from "./controllers/shipper.controller";
     ],
     controllers: [
         RootController,
-        ProductController,
-        CategoryController,
-        CustomerController,
-        EmployeeController,
+        CatalogController,
+        CustomerPortfolioController,
+        CompanyController,
         ShipperController,
-        OrderController
+        PurchaseController
     ],
 })
 export class HttpServerModule {

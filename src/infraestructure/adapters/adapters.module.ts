@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../persistence/persistence.module';
-import { CustomerRepositoryAdapter } from './Orders/CustomerRepositoryAdapter';
-import { EmployeeRepositoryAdapter } from './Orders/EmployeeRepositoryAdapter';
-import { OrderRepositoryAdapter } from './Orders/OrderRepositoryAdapter';
-import { ProductRepositoryAdapter } from './Orders/ProductRepositoryAdapter';
-import { ShipperRepositoryAdapter } from './Orders/ShipperRepositoryAdapter';
+import { PostgresCustomerRepository } from './domain/postgres-customer.repository';
+import { PostgresEmployeeRepository } from './domain/postgres-employee.repository';
+import { PostgresOrderRepository } from './domain/postgres-order.repository';
+import { PostgresProductRepository } from './domain/postgres-product.repository';
+import { PostgresShipperRepository } from './domain/postgres-shipper.repository';
 
 export const PRODUCT_REPOSITORY = 'PRODUCT_REPOSITORY'
 export const ORDER_REPOSITORY = 'ORDER_REPOSITORY'
@@ -13,30 +13,30 @@ export const SHIPPER_REPOSITORY = 'SHIPPER_REPOSITORY'
 export const CUSTOMER_REPOSITORY = 'CUSTOMER_REPOSITORY'
 
 const providers = [
-    OrderRepositoryAdapter,
-    CustomerRepositoryAdapter,
-    EmployeeRepositoryAdapter,
-    ShipperRepositoryAdapter,
-    ProductRepositoryAdapter,
+    PostgresOrderRepository,
+    PostgresCustomerRepository,
+    PostgresEmployeeRepository,
+    PostgresProductRepository,
+    PostgresShipperRepository,
     {
         provide: ORDER_REPOSITORY,
-        useExisting: OrderRepositoryAdapter
+        useExisting: PostgresOrderRepository
     },
     {
         provide: CUSTOMER_REPOSITORY,
-        useExisting: CustomerRepositoryAdapter
+        useExisting: PostgresCustomerRepository
     },
     {
         provide: EMPLOYEE_REPOSITORY,
-        useExisting: EmployeeRepositoryAdapter
+        useExisting: PostgresEmployeeRepository
     },
     {
         provide: SHIPPER_REPOSITORY,
-        useExisting: ShipperRepositoryAdapter
+        useExisting: PostgresShipperRepository
     },
     {
         provide: PRODUCT_REPOSITORY,
-        useExisting: ProductRepositoryAdapter
+        useExisting: PostgresProductRepository
     }
 ]
 
