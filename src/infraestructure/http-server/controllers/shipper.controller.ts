@@ -1,7 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { SearchShipperService } from "../../../core/application/services/SearchShipperService";
-import { Shipper } from "../../../core/domain/entities/Shipper";
+import { SearchShipperService } from "../../../core/Suppliers/application/SearchShipperService";
+import { Shipper } from "../../../core/Suppliers/domain/Shipper";
 
 @ApiTags('Shippers')
 @Controller('/shipper')

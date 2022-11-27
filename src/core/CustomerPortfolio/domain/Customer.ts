@@ -1,7 +1,7 @@
 
 export class Customer {
 
-    customerId: number;
+    customerId: string;
     companyName: string;
     contactName: string;
     contactTitle: string;

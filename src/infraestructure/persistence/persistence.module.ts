@@ -42,12 +42,15 @@ const providers = [
       ShippersEntity,
       OrdersEntity,
       OrderDetailsEntity
-  ])
+    ])
   ],
   exports: [
     ...providers,
-    NorthwindDatabaseModule
+    NorthwindDatabaseModule,
+    TypeOrmModule.forFeature([
+      ShippersEntity,
+  ])
   ],
   providers: providers,
 })
-export class PersistenceModule {}
+export class PersistenceModule { }

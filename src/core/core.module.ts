@@ -1,13 +1,23 @@
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../infraestructure/persistence/persistence.module';
-import { SearchEmployeeService } from './application/services/SearchEmployeeService';
-import { SearchOrderService } from './application/services/SearchOrderService';
-import { SearchCategoriesService } from './application/services/SearchCategoriesService';
-import { SearchCustomersService } from './application/services/SearchCustomersService';
-import { SearchProductsService } from './application/services/SearchProductsService';
-import { SearchShipperService } from './application/services/SearchShipperService';
-import { CreateOrderService } from './application/services/CreateOrderService';
+import { SearchEmployeeService } from './Company/application/SearchEmployeeService';
+import { SearchCategoriesService } from './Catalog/application/SearchCategoriesService';
+import { SearchCustomersService } from './CustomerPortfolio/application/SearchCustomersService';
+import { SearchProductsService } from './Catalog/application/SearchProductsService';
+import { SearchShipperService } from './Suppliers/application/SearchShipperService';
+import { CreateOrderUseCase } from './Orders/application/CreateOrderUseCase';
+import { AdaptersModule, CUSTOMER_REPOSITORY, EMPLOYEE_REPOSITORY, ORDER_REPOSITORY, PRODUCT_REPOSITORY, SHIPPER_REPOSITORY } from '../infraestructure/adapters/adapters.module';
+import { DetailService } from './Orders/domain/ports/inbound/DetailService';
+import { ProductRepository } from './Orders/domain/ports/outbound/ProductRepository';
+import { OrderRepository } from './Orders/domain/ports/outbound/OrderRepository';
+import { CustomerRepository } from './Orders/domain/ports/outbound/CustomerRepository';
+import { EmployeeRepository } from './Orders/domain/ports/outbound/EmployeeRepository';
+import { ShipperRepository } from './Orders/domain/ports/outbound/ShipperRepository';
+import { OrderService } from './Orders/domain/ports/inbound/OrderService';
 
+export const CREATE_ORDER_USER_USE_CASE = 'CREATE_ORDER_USER_USE_CASE'
+const DETAIL_SERVICE = 'DETAIL_SERVICE'
+const ORDER_SERVICE = 'ORDER_SERVICE'
 
 const providers = [
   SearchProductsService,
@@ -15,19 +25,48 @@ const providers = [
   SearchCustomersService,
   SearchEmployeeService,
   SearchShipperService,
-  SearchOrderService,
-  CreateOrderService
 ]
 
 @Module({
   imports: [
-    PersistenceModule
+    PersistenceModule,
+    AdaptersModule,
   ],
   providers: [
-    ...providers
+    ...providers,
+    {
+      provide: DETAIL_SERVICE,
+      useFactory: (product: ProductRepository) => new DetailService(product),
+      inject: [
+        PRODUCT_REPOSITORY
+      ]
+    },
+    {
+      provide: ORDER_SERVICE,
+      useFactory: (
+        order: OrderRepository,
+        customer: CustomerRepository,
+        employee: EmployeeRepository,
+        shipper: ShipperRepository,
+        detail: DetailService
+      ) => new OrderService(order, customer, employee, shipper, detail),
+      inject: [
+        ORDER_REPOSITORY,
+        CUSTOMER_REPOSITORY,
+        EMPLOYEE_REPOSITORY,
+        SHIPPER_REPOSITORY,
+        DETAIL_SERVICE
+      ]
+    },
+    {
+      provide: CreateOrderUseCase,
+      useFactory: (order: OrderService) => new CreateOrderUseCase(order),
+      inject: [ORDER_SERVICE]
+    }
   ],
   exports: [
-    ...providers
+    ...providers,
+    CreateOrderUseCase,
   ]
 })
 export class CoreModule {

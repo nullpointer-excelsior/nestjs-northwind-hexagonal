@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, UseFilters } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { SearchProductsService } from "../../../core/application/services/SearchProductsService";
+import { SearchProductsService } from "../../../core/Catalog/application/SearchProductsService";
 import { GlobalExceptionFilter } from "../exception-filters/global-exception.filter";
 import { AppResponse } from "../model/app.response";
 

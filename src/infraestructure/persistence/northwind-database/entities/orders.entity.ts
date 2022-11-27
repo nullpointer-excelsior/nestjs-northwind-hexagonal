@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { CustomersEntity } from './customer.entity';
 import { EmployeesEntity } from './employess.entity';
 import { OrderDetailsEntity } from './order-details.entity';
@@ -7,7 +7,7 @@ import { ShippersEntity } from './shippers.entity';
 @Entity({ name: 'orders' })
 export class OrdersEntity {
 
-    @PrimaryColumn({ name: 'order_id' })
+    @PrimaryGeneratedColumn({ name: 'order_id' })
     orderId: number;
     
     @Column({ type: 'timestamp', name: 'order_date' })

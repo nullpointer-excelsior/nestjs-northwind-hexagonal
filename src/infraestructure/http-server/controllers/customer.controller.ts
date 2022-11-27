@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Param } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { SearchCustomersService } from "../../../core/application/services/SearchCustomersService";
-import { Customer } from "../../../core/domain/entities/Customer";
+import { SearchCustomersService } from "../../../core/CustomerPortfolio/application/SearchCustomersService";
+import { Customer } from "../../../core/CustomerPortfolio/domain/Customer";
 
 
 @ApiTags('Customers')

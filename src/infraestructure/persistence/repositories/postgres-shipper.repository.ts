@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Shipper } from "../../../core/domain/entities/Shipper";
+import { Shipper } from "../../../core/Suppliers/domain/Shipper";
 import { ShippersEntity } from "../northwind-database/entities/shippers.entity";
 
 @Injectable()

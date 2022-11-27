@@ -6,7 +6,7 @@ import { OrdersEntity } from './orders.entity';
 export class CustomersEntity {
 
     @PrimaryColumn({ name: 'customer_id' })
-    customerId: number;
+    customerId: string;
 
     @Column({ name: 'company_name' })
     companyName: string;
