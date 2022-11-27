@@ -6,7 +6,7 @@ import { GlobalExceptionFilter } from "../exception-filters/global-exception.fil
 import { CreateOrderRequest } from "../model/create-order.request";
 
 
-@ApiTags('Orders')
+@ApiTags('Purchases')
 @UseFilters(GlobalExceptionFilter)
 @Controller('/order')
 export class PurchaseController {

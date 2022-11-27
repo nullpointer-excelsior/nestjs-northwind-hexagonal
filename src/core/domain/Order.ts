@@ -5,7 +5,7 @@ import { Shipper } from "./Shipper";
 
 export class Order {
 
-    orderId?: number;
+    orderId: number;
     customer: Customer;
     employee: Employee;
     orderDate: Date;
@@ -20,10 +20,5 @@ export class Order {
     shippedDate: Date;
     freight: number;
     details: Detail[]
-    
-
-    equalsTo(e: Order): boolean {
-        return this.orderId === e.orderId
-    }
 
 }

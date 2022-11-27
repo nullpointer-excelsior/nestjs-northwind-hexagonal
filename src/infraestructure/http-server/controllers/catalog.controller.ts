@@ -6,7 +6,7 @@ import { AppResponse } from "../model/app.response";
 
 
 @ApiTags('Catalog')
-@Controller('/catalag')
+@Controller('/catalog')
 @UseFilters(GlobalExceptionFilter)
 export class CatalogController {
 

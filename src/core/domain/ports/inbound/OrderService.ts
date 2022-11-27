@@ -66,4 +66,8 @@ export class OrderService {
         return this.order.save(order)
     }
 
+    async findById(id: number) {
+        return this.order.findById(id)
+    }
+
 }

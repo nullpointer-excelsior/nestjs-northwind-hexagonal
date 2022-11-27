@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { EntityManager } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
+import { EntityManager, Repository } from "typeorm";
 import { Order } from "../../../core/domain/Order";
 import { OrderRepository } from "../../../core/domain/ports/outbound/OrderRepository";
 import { OrderDetailsEntity } from "../../persistence/northwind-database/entities/order-details.entity";
@@ -14,7 +15,7 @@ export interface DetailValues {
 }
 
 export interface OrderValues {
-    
+
     orderDate: Date;
     requiredDate: Date;
     shippedDate: Date;
@@ -28,26 +29,28 @@ export interface OrderValues {
     shipperId: number;
     customerId: string;
     employeeId: number;
-    
+
 }
 
 @Injectable()
 export class PostgresOrderRepository implements OrderRepository {
-    
+
     constructor(
-        private transaction: TransactionProvider
+        private transaction: TransactionProvider,
+        @InjectRepository(OrdersEntity) private repository: Repository<OrdersEntity>,
     ) { }
 
+
     async saveOrder(manager: EntityManager, values: OrderValues) {
-        
+
         const result = await manager
             .createQueryBuilder()
             .insert()
             .into(OrdersEntity)
             .values(values)
             .execute()
-            
-            return result.identifiers[0].orderId
+
+        return result.identifiers[0].orderId
 
     }
 
@@ -61,9 +64,9 @@ export class PostgresOrderRepository implements OrderRepository {
             .execute()
 
     }
-    
+
     async save(order: Order): Promise<number> {
-        
+
         let orderId = null
 
         const orderValues = {
@@ -98,7 +101,25 @@ export class PostgresOrderRepository implements OrderRepository {
         })
 
         return orderId
-        
+
     }
+
+    async findById(id: number): Promise<Order> {
+        const entity = await this.repository
+            .createQueryBuilder('order')
+            .leftJoinAndSelect('order.shipper', 'shipper')
+            .leftJoinAndSelect('order.customer', 'customer')
+            .leftJoinAndSelect('order.employee', 'employee')
+            .leftJoinAndSelect('order.orderDetails', 'orderDetails')
+            .leftJoinAndSelect('orderDetails.product', 'products')
+            .where('order.orderId =:orderId', { orderId: id })
+            .getOne()
+        return {
+            ...entity,
+            details: entity.orderDetails
+        }
+
+    }
+
 
 }

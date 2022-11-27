@@ -4,7 +4,6 @@ import { CustomerPortfolioController } from "./controllers/customer-portfolio.co
 import { CompanyController } from "./controllers/company.controller";
 import { PurchaseController } from "./controllers/purchase.controller";
 import { CatalogController } from "./controllers/catalog.controller";
-import { RootController } from "./controllers/root.controller";
 import { ShipperController } from "./controllers/company-suppliers.controller";
 
 @Module({
@@ -12,7 +11,6 @@ import { ShipperController } from "./controllers/company-suppliers.controller";
         CoreModule,
     ],
     controllers: [
-        RootController,
         CatalogController,
         CustomerPortfolioController,
         CompanyController,

@@ -14,9 +14,6 @@ import { CompanySuppliersUseCases } from './application/CompanySuppliersUseCases
 import { CompanyUseCases } from './application/CompanyUseCases';
 import { CustomerPortfolioUseCases } from './application/CustomerPortfolioUseCases';
 
-export const CREATE_ORDER_USER_USE_CASE = 'CREATE_ORDER_USER_USE_CASE'
-const DETAIL_SERVICE = 'DETAIL_SERVICE'
-const ORDER_SERVICE = 'ORDER_SERVICE'
 
 const providers = [
   CatalogUseCases,
@@ -33,14 +30,14 @@ const providers = [
   providers: [
     ...providers,
     {
-      provide: DETAIL_SERVICE,
+      provide: DetailService,
       useFactory: (product: ProductRepository) => new DetailService(product),
       inject: [
         PRODUCT_REPOSITORY
       ]
     },
     {
-      provide: ORDER_SERVICE,
+      provide: OrderService,
       useFactory: (
         order: OrderRepository,
         customer: CustomerRepository,
@@ -53,13 +50,13 @@ const providers = [
         CUSTOMER_REPOSITORY,
         EMPLOYEE_REPOSITORY,
         SHIPPER_REPOSITORY,
-        DETAIL_SERVICE
+        DetailService
       ]
     },
     {
       provide: PurchaseUseCases,
       useFactory: (order: OrderService) => new PurchaseUseCases(order),
-      inject: [ORDER_SERVICE]
+      inject: [OrderService]
     }
   ],
   exports: [

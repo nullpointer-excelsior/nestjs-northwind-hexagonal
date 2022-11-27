@@ -1,4 +1,3 @@
-import { LocationInfo } from "../shared/vo/LocationInfo";
 
 export class Employee {
     employeeId: number;
