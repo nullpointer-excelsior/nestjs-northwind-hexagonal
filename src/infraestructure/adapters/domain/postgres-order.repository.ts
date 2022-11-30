@@ -25,7 +25,6 @@ export interface OrderValues {
     shipAddress: string;
     shipCity: string;
     shipRegion: string;
-    shipPostalCode: string;
     shipCountry: string;
     shipperId: number;
     customerId: string;
@@ -83,7 +82,6 @@ export class PostgresOrderRepository implements OrderRepository {
             shipAddress: order.shippingLocation.address,
             shipCity: order.shippingLocation.city,
             shipRegion: order.shippingLocation.region,
-            shipPostalCode: order.shipPostalCode,
             shipCountry: order.shippingLocation.country
         }
 
@@ -117,10 +115,6 @@ export class PostgresOrderRepository implements OrderRepository {
             .leftJoinAndSelect('orderDetails.product', 'products')
             .where('order.orderId =:orderId', { orderId: id })
             .getOne()
-
-            // return Order.createOrderFromPersistence((instance: Order) => {
-            //     return instance
-            // })  
 
         return this.mapper.map(entity)
 

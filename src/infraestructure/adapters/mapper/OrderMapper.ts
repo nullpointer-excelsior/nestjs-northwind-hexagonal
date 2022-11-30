@@ -20,12 +20,6 @@ export class OrderMapper implements Mapper<OrdersEntity, Order> {
         order.freight = entity.freight
         order.orderDate = entity.orderDate
         order.requiredDate = entity.requiredDate
-        order.shipAddress = entity.shipAddress
-        order.shipCity = entity.shipCity
-        order.shipCountry = entity.shipCountry
-        order.shipName = entity.shipName
-        order.shipPostalCode = entity.shipPostalCode
-        order.shipRegion = entity.shipRegion
         order.shippedDate = entity.shippedDate
         order.shippingLocation = {
             name: entity.shipName,

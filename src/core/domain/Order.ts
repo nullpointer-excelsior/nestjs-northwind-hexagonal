@@ -16,12 +16,6 @@ export class Order {
     requiredDate: Date;
     shipper: Shipper;
     shippingLocation?: ShippingLocation;
-    shipName: string;
-    shipAddress: string;
-    shipCity: string;
-    shipRegion: string;
-    shipPostalCode: string;
-    shipCountry: string;
     shippedDate: Date;
     freight: number;
     details: Detail[]

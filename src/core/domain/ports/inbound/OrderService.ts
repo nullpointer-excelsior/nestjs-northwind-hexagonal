@@ -46,16 +46,16 @@ export class OrderService {
         order.employee = await this.getEmployee(dto.employeeId)
         order.shipper = await this.getShipper(dto.shipperId)
         order.details = await this.getProductDetail(dto.details)
-
+        order.shippingLocation = {
+            name: dto.shipName,
+            address: dto.shipAddress,
+            city: dto.shipCity,
+            region: dto.shipRegion,
+            country: dto.shipCountry,
+        }
         order.freight = dto.freight
         order.orderDate = new Date()
         order.requiredDate = dto.requiredDate
-        order.shipAddress = dto.shipAddress
-        order.shipCity = dto.shipCity
-        order.shipCountry = dto.shipCountry
-        order.shipName = dto.shipName
-        order.shipPostalCode = dto.shipPostalCode
-        order.shipRegion = dto.shipRegion
         order.shippedDate = dto.shippedDate
 
         return order
