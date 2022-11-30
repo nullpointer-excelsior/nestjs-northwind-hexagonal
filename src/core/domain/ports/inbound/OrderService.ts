@@ -1,6 +1,8 @@
+import { DomainEventBus } from "../../../shared/DomainEventBus";
 import { CreateDetailDTO, CreateOrderDto } from "../../../shared/dto/CreateOrderDto";
 import { OrderCreatedDto } from "../../../shared/dto/OrderCreatedDto";
 import { EntityNotFoundException } from "../../../shared/exception/EntityNotFoundException";
+import { OrderCreated } from "../../events/OrderCreated";
 import { Order } from "../../Order";
 import { Detail } from "../../vo/Detail";
 import { OrderId } from "../../vo/OrderID";
@@ -17,7 +19,8 @@ export class OrderService {
         private readonly customer: CustomerRepository,
         private readonly employee: EmployeeRepository,
         private readonly shipper: ShipperRepository,
-        private readonly product: ProductRepository
+        private readonly product: ProductRepository,
+        private readonly eventbus: DomainEventBus
     ) { }
 
     async create(createorder: CreateOrderDto) {
@@ -96,29 +99,16 @@ export class OrderService {
                 order.orderId = orderId
                 return order
             })
+            .then(order => {
+                this.eventbus.publish(new OrderCreated(order))
+                return order
+            })
     }
 
     async findOrderCreatedById(id: OrderId): Promise<OrderCreatedDto> {
         return this.order
             .findById(id)
-            .then(order => ({
-                orderId: order.orderId,
-                orderDate: order.orderDate,
-                customer: order.customer,
-                employee: order.employee,
-                shipping: order.shippingLocation,
-                details: order.details.map(detail => {
-                    return {
-                        product: {
-                            productId: detail.product.productId,
-                            productName: detail.product.productName
-                        },
-                        unitPrice: detail.unitPrice.getValue(),
-                        quantity: detail.quantity,
-                        discount: detail.discount.getValue()
-                    }
-                })
-            }))
+            .then(order => order.getSummary())
     }
 
 }

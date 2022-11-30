@@ -15,7 +15,7 @@ describe('PurchaseUseCases tests', () =>{
             findById: jest.fn().mockResolvedValue({orderId: 100} as Order)
         } as unknown as OrderService 
 
-        const purchase = new PurchaseUseCases(ordermock, null)
+        const purchase = new PurchaseUseCases(ordermock)
         const result = await purchase.createOrder({
             customerId: '1',
             employeeId: 1

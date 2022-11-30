@@ -17,6 +17,7 @@ import { CompanyUseCases } from './application/services/CompanyUseCases';
 import { CustomerPortfolioUseCases } from './application/services/CustomerPortfolioUseCases';
 import { PurchaseUseCases } from './application/services/PurchaseUseCases';
 
+export const EVENTBUS = 'EVENTBUS'
 
 const providers = [
   CatalogUseCases,
@@ -40,14 +41,16 @@ const providers = [
         customer: CustomerRepository,
         employee: EmployeeRepository,
         shipper: ShipperRepository,
-        product: ProductRepository
-      ) => new OrderService(order, customer, employee, shipper, product),
+        product: ProductRepository, 
+        eventbus: DomainEventBus
+      ) => new OrderService(order, customer, employee, shipper, product, eventbus),
       inject: [
         ORDER_REPOSITORY,
         CUSTOMER_REPOSITORY,
         EMPLOYEE_REPOSITORY,
         SHIPPER_REPOSITORY,
-        PRODUCT_REPOSITORY
+        PRODUCT_REPOSITORY,
+        EVENTBUS
       ]
     },
     {
@@ -57,14 +60,13 @@ const providers = [
     },
     {
       provide: PurchaseUseCases,
-      useFactory: (order: OrderService, eventbus: DomainEventBus) => new PurchaseUseCases(order, eventbus),
+      useFactory: (order: OrderService) => new PurchaseUseCases(order),
       inject: [
         OrderService,
-        'EVENTBUS'
       ]
     },
     {
-      provide: 'EVENTBUS',
+      provide: EVENTBUS,
       useExisting: InMemoryEventBus
     }
   ],
@@ -75,7 +77,7 @@ const providers = [
 })
 export class CoreModule {
 
-  constructor(@Inject('EVENTBUS') private eventbus: DomainEventBus, private stock: StockUpdaterUseCase) {
+  constructor(@Inject(EVENTBUS) private eventbus: DomainEventBus, private stock: StockUpdaterUseCase) {
     this.eventbus.subscribe(stock)
   }
 
