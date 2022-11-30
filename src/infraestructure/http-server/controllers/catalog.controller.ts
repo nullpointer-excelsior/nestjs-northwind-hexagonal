@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, UseFilters } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { CatalogUseCases } from "../../../core/application/services/CatalogUseCases";
+import { CatalogUseCases } from "../../../core/application/usecases/services/CatalogUseCases";
 import { GlobalExceptionFilter } from "../exception-filters/global-exception.filter";
 import { AppResponse } from "../model/app.response";
 

@@ -1,7 +1,7 @@
 
-import { Order } from "../../domain/Order"
-import { OrderService } from "../../domain/ports/inbound/OrderService"
-import { CreateOrderDto } from "../../shared/dto/CreateOrderDto"
+import { Order } from "../../../domain/Order"
+import { OrderService } from "../../../domain/ports/inbound/OrderService"
+import { CreateOrderDto } from "../../../shared/dto/CreateOrderDto"
 import { PurchaseUseCases } from "./PurchaseUseCases"
 
 

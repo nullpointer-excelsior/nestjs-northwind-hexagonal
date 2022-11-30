@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Param } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { CustomerPortfolioUseCases } from "../../../core/application/services/CustomerPortfolioUseCases";
+import { CustomerPortfolioUseCases } from "../../../core/application/usecases/services/CustomerPortfolioUseCases";
 import { Customer } from "../../../core/domain/Customer";
 
 

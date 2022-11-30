@@ -1,9 +1,9 @@
 import { Injectable, Logger } from "@nestjs/common"
-import { OrderCreated } from "../../domain/events/OrderCreated"
-import { Order } from "../../domain/Order"
-import { ProductService } from "../../domain/ports/inbound/ProductService"
-import { DomainEvent } from "../../shared/DomainEvent"
-import { DomainEventSubscriber } from "../../shared/DomainEventSubscriber"
+import { OrderCreated } from "../../../domain/events/OrderCreated"
+import { Order } from "../../../domain/Order"
+import { ProductService } from "../../../domain/ports/inbound/ProductService"
+import { DomainEvent } from "../../../shared/DomainEvent"
+import { DomainEventSubscriber } from "../../../shared/DomainEventSubscriber"
 
 @Injectable()
 export class StockUpdaterUseCase implements DomainEventSubscriber<Order> {

@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Inject, Logger, Post, UseFilters } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, UseFilters } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { OrderCreated } from "../../../../clean-architecture-examples/context-example/src/core/Orders/domain/events/OrderCreated";
-import { PurchaseUseCases } from "../../../core/application/services/PurchaseUseCases";
+import { Order } from "../../../../clean-architecture-examples/context-example/src/core/Orders/domain/Order";
+import { Paginated } from "../../../core/application/services/Paginated";
+import { PurchaseUseCases } from "../../../core/application/usecases/services/PurchaseUseCases";
 import { GlobalExceptionFilter } from "../exception-filters/global-exception.filter";
 import { CreateOrderRequest } from "../model/create-order.request";
 
@@ -21,6 +23,13 @@ export class PurchaseController {
             ...order,
             details: order.orderDetails
         })
+    }
+
+    @ApiInternalServerErrorResponse({ description: 'Error server'})
+    @ApiResponse({ description: "Get orders by paginated request", type: Paginated<Array<Order>> })
+    @Get('/order')
+    async getOrders(@Query('page')page: number, @Query('size') size: number) {
+        return this.purchase.getOrders({ page, size })
     }
 
 }

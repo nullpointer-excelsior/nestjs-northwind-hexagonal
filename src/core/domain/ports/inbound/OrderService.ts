@@ -1,11 +1,9 @@
 import { DomainEventBus } from "../../../shared/DomainEventBus";
 import { CreateDetailDTO, CreateOrderDto } from "../../../shared/dto/CreateOrderDto";
-import { OrderCreatedDto } from "../../../shared/dto/OrderCreatedDto";
 import { EntityNotFoundException } from "../../../shared/exception/EntityNotFoundException";
 import { OrderCreated } from "../../events/OrderCreated";
 import { Order } from "../../Order";
 import { Detail } from "../../vo/Detail";
-import { OrderId } from "../../vo/OrderID";
 import { CustomerRepository } from "../outbound/CustomerRepository";
 import { EmployeeRepository } from "../outbound/EmployeeRepository";
 import { OrderRepository } from "../outbound/OrderRepository";
@@ -105,10 +103,12 @@ export class OrderService {
             })
     }
 
-    async findOrderCreatedById(id: OrderId): Promise<OrderCreatedDto> {
-        return this.order
-            .findById(id)
-            .then(order => order.getSummary())
+    async getOrdersSlice(limit: number, offset: number) {
+        return this.order.findBySlice(limit, offset)
+    }
+
+    async getOrdersCount() {
+        return this.order.count()
     }
 
 }

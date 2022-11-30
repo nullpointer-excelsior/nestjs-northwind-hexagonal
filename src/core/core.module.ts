@@ -7,15 +7,15 @@ import { CustomerRepository } from './domain/ports/outbound/CustomerRepository';
 import { EmployeeRepository } from './domain/ports/outbound/EmployeeRepository';
 import { ShipperRepository } from './domain/ports/outbound/ShipperRepository';
 import { OrderService } from './domain/ports/inbound/OrderService';
-import { CatalogUseCases } from './application/services/CatalogUseCases';
+import { CatalogUseCases } from './application/usecases/services/CatalogUseCases';
 import { InMemoryEventBus } from '../infraestructure/adapters/eventbus/in-memory-event-bus.service';
 import { DomainEventBus } from './shared/DomainEventBus';
-import { StockUpdaterUseCase } from './application/subscribers/StockUpdaterUseCase';
+import { StockUpdaterUseCase } from './application/usecases/subscribers/StockUpdaterUseCase';
 import { ProductService } from './domain/ports/inbound/ProductService';
-import { CompanySuppliersUseCases } from './application/services/CompanySuppliersUseCases';
-import { CompanyUseCases } from './application/services/CompanyUseCases';
-import { CustomerPortfolioUseCases } from './application/services/CustomerPortfolioUseCases';
-import { PurchaseUseCases } from './application/services/PurchaseUseCases';
+import { CompanySuppliersUseCases } from './application/usecases/services/CompanySuppliersUseCases';
+import { CompanyUseCases } from './application/usecases/services/CompanyUseCases';
+import { CustomerPortfolioUseCases } from './application/usecases/services/CustomerPortfolioUseCases';
+import { PurchaseUseCases } from './application/usecases/services/PurchaseUseCases';
 
 export const EVENTBUS = 'EVENTBUS'
 

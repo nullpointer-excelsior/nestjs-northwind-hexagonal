@@ -41,7 +41,6 @@ export class PostgresOrderRepository implements OrderRepository {
         @InjectRepository(OrdersEntity) private repository: Repository<OrdersEntity>,
     ) { }
 
-
     async saveOrder(manager: EntityManager, values: OrderValues) {
 
         const result = await manager
@@ -119,6 +118,27 @@ export class PostgresOrderRepository implements OrderRepository {
         return this.mapper.map(entity)
 
     }
+
+    async findBySlice(limit: number, offset: number): Promise<Order[]> {
+        
+        return await this.repository
+            .createQueryBuilder('order')
+            .leftJoinAndSelect('order.shipper', 'shipper')
+            .leftJoinAndSelect('order.customer', 'customer')
+            .leftJoinAndSelect('order.employee', 'employee')
+            .leftJoinAndSelect('order.orderDetails', 'orderDetails')
+            .leftJoinAndSelect('orderDetails.product', 'products')
+            .take(limit)
+            .skip(offset)
+            .getMany()
+            .then(entities => entities.map(e => this.mapper.map(e)))
+        
+    }
+    
+    count(): Promise<number> {
+        return this.repository.count()
+    }
+
 
 
 }

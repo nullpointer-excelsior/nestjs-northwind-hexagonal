@@ -1,6 +1,6 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { CompanySuppliersUseCases } from "../../../core/application/services/CompanySuppliersUseCases";
+import { CompanySuppliersUseCases } from "../../../core/application/usecases/services/CompanySuppliersUseCases";
 import { Shipper } from "../../../core/domain/Shipper";
 
 @ApiTags('Suppliers')
