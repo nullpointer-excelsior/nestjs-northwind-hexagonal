@@ -6,6 +6,7 @@ import { OrderRepository } from "../../../core/domain/ports/outbound/OrderReposi
 import { OrderDetailsEntity } from "../../persistence/northwind-database/entities/order-details.entity";
 import { OrdersEntity } from "../../persistence/northwind-database/entities/orders.entity";
 import { TransactionProvider } from "../../persistence/northwind-database/providers/transaction.provider";
+import { OrderMapper } from "../mapper/OrderMapper";
 
 export interface DetailValues {
     productId: number;
@@ -36,6 +37,7 @@ export interface OrderValues {
 export class PostgresOrderRepository implements OrderRepository {
 
     constructor(
+        private mapper: OrderMapper,
         private transaction: TransactionProvider,
         @InjectRepository(OrdersEntity) private repository: Repository<OrdersEntity>,
     ) { }
@@ -75,14 +77,14 @@ export class PostgresOrderRepository implements OrderRepository {
             orderDate: order.orderDate,
             requiredDate: order.requiredDate,
             shippedDate: order.shippedDate,
-            shipperId: order.shipper.shipperId,
+            shipperId: order.shipper?.shipperId,
             freight: order.freight,
-            shipName: order.shipName,
-            shipAddress: order.shipAddress,
-            shipCity: order.shipCity,
-            shipRegion: order.shipRegion,
+            shipName: order.shippingLocation.name,
+            shipAddress: order.shippingLocation.address,
+            shipCity: order.shippingLocation.city,
+            shipRegion: order.shippingLocation.region,
             shipPostalCode: order.shipPostalCode,
-            shipCountry: order.shipCountry
+            shipCountry: order.shippingLocation.country
         }
 
         await this.transaction.transacction(async (em: EntityManager) => {
@@ -92,9 +94,9 @@ export class PostgresOrderRepository implements OrderRepository {
             const detailsValues = order.details.map(detail => ({
                 orderId: orderId,
                 productId: detail.product.productId,
-                unitPrice: detail.unitPrice,
+                unitPrice: detail.unitPrice.getValue(),
                 quantity: detail.quantity,
-                discount: detail.discount
+                discount: detail.discount.getValue()
             }))
             await this.saveOrderDetails(em, orderId, detailsValues)
 
@@ -105,6 +107,7 @@ export class PostgresOrderRepository implements OrderRepository {
     }
 
     async findById(id: number): Promise<Order> {
+        
         const entity = await this.repository
             .createQueryBuilder('order')
             .leftJoinAndSelect('order.shipper', 'shipper')
@@ -114,10 +117,12 @@ export class PostgresOrderRepository implements OrderRepository {
             .leftJoinAndSelect('orderDetails.product', 'products')
             .where('order.orderId =:orderId', { orderId: id })
             .getOne()
-        return {
-            ...entity,
-            details: entity.orderDetails
-        }
+
+            // return Order.createOrderFromPersistence((instance: Order) => {
+            //     return instance
+            // })  
+
+        return this.mapper.map(entity)
 
     }
 

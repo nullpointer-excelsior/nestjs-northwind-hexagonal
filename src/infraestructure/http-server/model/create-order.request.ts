@@ -23,10 +23,6 @@ export class CreateOrderRequest {
     @ApiProperty({
         description: 'Order date',
     })
-    orderDate: Date;
-    @ApiProperty({
-        description: 'Required date',
-    })
     requiredDate: Date;
     @ApiProperty({
         description: 'shipped date',

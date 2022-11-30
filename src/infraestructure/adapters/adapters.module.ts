@@ -5,6 +5,8 @@ import { PostgresEmployeeRepository } from './domain/postgres-employee.repositor
 import { PostgresOrderRepository } from './domain/postgres-order.repository';
 import { PostgresProductRepository } from './domain/postgres-product.repository';
 import { PostgresShipperRepository } from './domain/postgres-shipper.repository';
+import { DetailsMapper } from './mapper/DetailsMapper';
+import { OrderMapper } from './mapper/OrderMapper';
 
 export const PRODUCT_REPOSITORY = 'PRODUCT_REPOSITORY'
 export const ORDER_REPOSITORY = 'ORDER_REPOSITORY'
@@ -18,6 +20,8 @@ const providers = [
     PostgresEmployeeRepository,
     PostgresProductRepository,
     PostgresShipperRepository,
+    OrderMapper,
+    DetailsMapper,
     {
         provide: ORDER_REPOSITORY,
         useExisting: PostgresOrderRepository

@@ -1,19 +1,19 @@
-import { OrderDTO, OrderService } from "../domain/ports/inbound/OrderService"
+import { OrderService } from "../domain/ports/inbound/OrderService"
+import { CreateOrderDto } from "./dto/CreateOrderDto"
+import { OrderCreatedDto } from "./dto/OrderCreatedDto"
 
 export class PurchaseUseCases {
 
     constructor(private order: OrderService) { }
 
-    async createOrder(createorder: OrderDTO) {
-        
+    async createOrder(createorder: CreateOrderDto): Promise<OrderCreatedDto>  {
+
         return this.order
-            .create(createorder)
+            .createPartialOrder(createorder)
             .then(order => this.order.save(order))
-            .then(orderId => this.order.findById(orderId))
+            .then(orderId => this.order.findOrderCreatedById(orderId))
 
     }
 
-
-    getOrders() { }
 
 }
