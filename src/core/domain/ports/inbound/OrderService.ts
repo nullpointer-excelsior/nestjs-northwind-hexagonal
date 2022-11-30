@@ -1,10 +1,9 @@
-import { CreateDetailDTO, CreateOrderDto } from "../../../application/dto/CreateOrderDto";
-import { OrderCreatedDto } from "../../../application/dto/OrderCreatedDto";
+import { CreateDetailDTO, CreateOrderDto } from "../../../shared/dto/CreateOrderDto";
+import { OrderCreatedDto } from "../../../shared/dto/OrderCreatedDto";
 import { EntityNotFoundException } from "../../../shared/exception/EntityNotFoundException";
 import { Order } from "../../Order";
 import { Detail } from "../../vo/Detail";
 import { OrderId } from "../../vo/OrderID";
-import { ShippingLocation } from "../../vo/Shipping";
 import { CustomerRepository } from "../outbound/CustomerRepository";
 import { EmployeeRepository } from "../outbound/EmployeeRepository";
 import { OrderRepository } from "../outbound/OrderRepository";
@@ -21,44 +20,26 @@ export class OrderService {
         private readonly product: ProductRepository
     ) { }
 
-    async createPartialOrder(dto: CreateOrderDto) {
+    async create(createorder: CreateOrderDto) {
 
-        const customer = await this.getCustomer(dto.customerId)
-        const employee = await this.getEmployee(dto.employeeId)
-        const details = await this.getProductDetail(dto.details)
-        const destination: ShippingLocation = {
-            name: dto.shipName,
-            address: dto.shipAddress,
-            city: dto.shipCity,
-            region: dto.shipRegion,
-            country: dto.shipCountry,
+        const customer = await this.getCustomer(createorder.customerId)
+        const employee = await this.getEmployee(createorder.employeeId)
+        const details = await this.getProductDetail(createorder.details)
+
+        const shipping = {
+            shipper: await this.getShipper(createorder.shipperId),
+            freight: createorder.freight,
+            shippedDate: createorder.shippedDate,
+            destination: {
+                name: createorder.shipName,
+                address: createorder.shipAddress,
+                city: createorder.shipCity,
+                region: createorder.shipRegion,
+                country: createorder.shipCountry,
+            }
         }
 
-        return Order.createNewOrder(customer, employee, details, destination)
-
-    }
-
-    async create(dto: CreateOrderDto): Promise<Order> {
-
-        let order = new Order()
-
-        order.customer = await this.getCustomer(dto.customerId)
-        order.employee = await this.getEmployee(dto.employeeId)
-        order.shipper = await this.getShipper(dto.shipperId)
-        order.details = await this.getProductDetail(dto.details)
-        order.shippingLocation = {
-            name: dto.shipName,
-            address: dto.shipAddress,
-            city: dto.shipCity,
-            region: dto.shipRegion,
-            country: dto.shipCountry,
-        }
-        order.freight = dto.freight
-        order.orderDate = new Date()
-        order.requiredDate = dto.requiredDate
-        order.shippedDate = dto.shippedDate
-
-        return order
+        return Order.createNewOrder(customer, employee, details, shipping)
 
     }
 
@@ -108,8 +89,13 @@ export class OrderService {
         return details
     }
 
-    async save(order: Order): Promise<OrderId> {
-        return this.order.save(order)
+    async save(order: Order): Promise<Order> {
+        return this.order
+            .save(order)
+            .then(orderId => {
+                order.orderId = orderId
+                return order
+            })
     }
 
     async findOrderCreatedById(id: OrderId): Promise<OrderCreatedDto> {
@@ -121,7 +107,7 @@ export class OrderService {
                 customer: order.customer,
                 employee: order.employee,
                 shipping: order.shippingLocation,
-                details: order.details.map(detail =>{
+                details: order.details.map(detail => {
                     return {
                         product: {
                             productId: detail.product.productId,
@@ -131,7 +117,7 @@ export class OrderService {
                         quantity: detail.quantity,
                         discount: detail.discount.getValue()
                     }
-                } )
+                })
             }))
     }
 

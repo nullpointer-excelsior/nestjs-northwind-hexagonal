@@ -5,6 +5,7 @@ import { PostgresEmployeeRepository } from './domain/postgres-employee.repositor
 import { PostgresOrderRepository } from './domain/postgres-order.repository';
 import { PostgresProductRepository } from './domain/postgres-product.repository';
 import { PostgresShipperRepository } from './domain/postgres-shipper.repository';
+import { InMemoryEventBus } from './eventbus/in-memory-event-bus.service';
 import { DetailsMapper } from './mapper/DetailsMapper';
 import { OrderMapper } from './mapper/OrderMapper';
 
@@ -22,6 +23,7 @@ const providers = [
     PostgresShipperRepository,
     OrderMapper,
     DetailsMapper,
+    InMemoryEventBus,
     {
         provide: ORDER_REPOSITORY,
         useExisting: PostgresOrderRepository
@@ -41,7 +43,8 @@ const providers = [
     {
         provide: PRODUCT_REPOSITORY,
         useExisting: PostgresProductRepository
-    }
+    },
+    
 ]
 
 @Module({

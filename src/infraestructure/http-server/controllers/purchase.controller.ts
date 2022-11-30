@@ -1,8 +1,7 @@
 import { Body, Controller, Get, Inject, Logger, Post, UseFilters } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { OrderCreated } from "../../../../clean-architecture-examples/context-example/src/core/Orders/domain/events/OrderCreated";
-import { PurchaseUseCases } from "../../../core/application/PurchaseUseCases";
-import { Order } from "../../../core/domain/Order";
+import { PurchaseUseCases } from "../../../core/application/services/PurchaseUseCases";
 import { GlobalExceptionFilter } from "../exception-filters/global-exception.filter";
 import { CreateOrderRequest } from "../model/create-order.request";
 

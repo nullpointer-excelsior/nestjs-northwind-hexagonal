@@ -76,7 +76,7 @@ export class PostgresOrderRepository implements OrderRepository {
             orderDate: order.orderDate,
             requiredDate: order.requiredDate,
             shippedDate: order.shippedDate,
-            shipperId: order.shipper?.shipperId,
+            shipperId: order.shipper.shipperId,
             freight: order.freight,
             shipName: order.shippingLocation.name,
             shipAddress: order.shippingLocation.address,

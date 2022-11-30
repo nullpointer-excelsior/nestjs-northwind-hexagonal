@@ -1,3 +1,4 @@
+
 export interface DetailCreated {
     product: {
         productId: number;
@@ -7,8 +8,10 @@ export interface DetailCreated {
     quantity: number;
     discount: number;
 }
+
 export interface OrderCreatedDto {
     orderId: any;
+    orderDate: Date;
     customer: {
         customerId: string;
         contactName: string;
@@ -28,7 +31,6 @@ export interface OrderCreatedDto {
         titleOfCourtesy: string;
         extension: string;
     };
-    orderDate: Date;
     shipping: {
         name: string,
         address: string,

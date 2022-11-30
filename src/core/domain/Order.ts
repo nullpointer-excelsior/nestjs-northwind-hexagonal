@@ -3,8 +3,8 @@ import { Detail } from './vo/Detail';
 import { Employee } from "./Employee";
 import { Shipper } from "./Shipper";
 import { OrderId } from './vo/OrderID';
-import { ShippingLocation } from './vo/Shipping';
-
+import { ShippingLocation } from './vo/ShippingLocation';
+import { ShippingDto } from '../shared/dto/ShippingDto';
 
 
 export class Order {
@@ -15,26 +15,23 @@ export class Order {
     orderDate: Date;
     requiredDate: Date;
     shipper: Shipper;
-    shippingLocation?: ShippingLocation;
+    shippingLocation: ShippingLocation;
     shippedDate: Date;
     freight: number;
     details: Detail[]
+    
 
-
-    createShipment(shipper: Shipper, freight: number) {
-        this.shipper = shipper
-        this.freight = freight
-        this.shippedDate = new Date()
-    }
-
-    static createNewOrder(customer: Customer, employee: Employee, details: Detail[], shipping: ShippingLocation): Order {
+    static createNewOrder(customer: Customer, employee: Employee, details: Detail[], shipping: ShippingDto): Order {
         
         const order = new Order()
         order.orderDate = new Date()
         order.customer = customer
         order.employee = employee
         order.details = details
-        order.shippingLocation = shipping
+        order.shippingLocation = shipping.destination
+        order.shipper = shipping.shipper
+        order.freight = shipping.freight
+        order.shippedDate = shipping.shippedDate
         
         return order
         
