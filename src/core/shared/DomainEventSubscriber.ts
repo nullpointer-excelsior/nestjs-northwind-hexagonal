@@ -9,6 +9,6 @@ export interface EventSubscriber {
 
 export interface DomainEventSubscriber<T> extends EventSubscriber {
 
-    onEvent(event: DomainEvent<T>): void;
+    onEvent(event: DomainEvent<T>): void | Promise<void>;
     
 }

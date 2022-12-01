@@ -1,4 +1,4 @@
-import { ProductRepository } from "../outbound/ProductRepository";
+import { ProductRepository } from "../ports/outbound/ProductRepository";
 
 export class ProductService {
 

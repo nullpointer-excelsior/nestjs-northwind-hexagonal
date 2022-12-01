@@ -1,6 +1,6 @@
 
 import { Order } from "../../../domain/Order"
-import { OrderService } from "../../../domain/ports/inbound/OrderService"
+import { OrderService } from "../../../domain/services/OrderService"
 import { CreateOrderDto } from "../../../shared/dto/CreateOrderDto"
 import { PurchaseUseCases } from "./PurchaseUseCases"
 

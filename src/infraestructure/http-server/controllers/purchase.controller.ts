@@ -1,12 +1,11 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { OrderCreated } from "../../../../clean-architecture-examples/context-example/src/core/Orders/domain/events/OrderCreated";
-import { Order } from "../../../../clean-architecture-examples/context-example/src/core/Orders/domain/Order";
 import { Paginated } from "../../../core/application/services/Paginated";
 import { PurchaseUseCases } from "../../../core/application/usecases/services/PurchaseUseCases";
 import { GlobalExceptionFilter } from "../exception-filters/global-exception.filter";
 import { CreateOrderRequest } from "../model/create-order.request";
-
+import { OrderCreatedDto } from "../../../core/shared/dto/OrderCreatedDto"
+import { Order } from "../../../core/domain/Order";
 
 @ApiTags('Purchases')
 @UseFilters(GlobalExceptionFilter)
@@ -16,9 +15,9 @@ export class PurchaseController {
     constructor(private purchase: PurchaseUseCases) {}
     
     @ApiInternalServerErrorResponse({ description: 'Error server'})
-    @ApiResponse({ description: "Order Created", type: OrderCreated })
+    // @ApiResponse({ description: "Order Created", type: OrderCreatedDto })
     @Post('/order')
-    async create(@Body() order: CreateOrderRequest): Promise<OrderCreated> {
+    async create(@Body() order: CreateOrderRequest): Promise<OrderCreatedDto> {
         return this.purchase.createOrder({
             ...order,
             details: order.orderDetails

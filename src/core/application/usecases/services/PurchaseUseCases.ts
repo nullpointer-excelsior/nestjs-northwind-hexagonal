@@ -1,5 +1,5 @@
-import { Order } from "../../../../../clean-architecture-examples/context-example/src/core/Orders/domain/Order";
-import { OrderService } from "../../../domain/ports/inbound/OrderService"
+import { Order } from "../../../domain/Order";
+import { OrderService } from "../../../domain/services/OrderService"
 import { CreateOrderDto } from "../../../shared/dto/CreateOrderDto"
 import { OrderCreatedDto } from "../../../shared/dto/OrderCreatedDto"
 import { Paginated } from "../../services/Paginated";

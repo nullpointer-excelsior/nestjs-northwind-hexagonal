@@ -9,9 +9,8 @@ import { ProductEntity } from './northwind-database/entities/product.entity';
 import { ShippersEntity } from './northwind-database/entities/shippers.entity';
 import { SupplierEntity } from './northwind-database/entities/supplier.entity';
 import { NorthwindDatabaseModule } from './northwind-database/northwind-database.module';
+import { SouthwindDatabaseModule } from './southwind-database/southwind-database.module';
 
-const providers = [
-]
 
 @Module({
   imports: [
@@ -25,15 +24,15 @@ const providers = [
       ShippersEntity,
       OrdersEntity,
       OrderDetailsEntity
-    ])
+    ]),
+    SouthwindDatabaseModule
   ],
   exports: [
-    ...providers,
     NorthwindDatabaseModule,
+    SouthwindDatabaseModule,
     TypeOrmModule.forFeature([
       ShippersEntity,
   ])
-  ],
-  providers: providers,
+  ]
 })
 export class PersistenceModule { }

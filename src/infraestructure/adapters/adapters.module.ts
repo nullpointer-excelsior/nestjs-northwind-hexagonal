@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from '../persistence/persistence.module';
+import { MongoOrderRepository } from './domain/mongo-order.repository';
 import { PostgresCustomerRepository } from './domain/postgres-customer.repository';
 import { PostgresEmployeeRepository } from './domain/postgres-employee.repository';
 import { PostgresOrderRepository } from './domain/postgres-order.repository';
@@ -10,7 +11,8 @@ import { DetailsMapper } from './mapper/DetailsMapper';
 import { OrderMapper } from './mapper/OrderMapper';
 
 export const PRODUCT_REPOSITORY = 'PRODUCT_REPOSITORY'
-export const ORDER_REPOSITORY = 'ORDER_REPOSITORY'
+export const NORTHWIND_ORDER_REPOSITORY = 'NORTHWIND_ORDER_REPOSITORY'
+export const SOUTHWIND_ORDER_REPOSITORY = 'SOUTHWIND_ORDER_REPOSITORY'
 export const EMPLOYEE_REPOSITORY = 'EMPLOYEE_REPOSITORY'
 export const SHIPPER_REPOSITORY = 'SHIPPER_REPOSITORY'
 export const CUSTOMER_REPOSITORY = 'CUSTOMER_REPOSITORY'
@@ -21,11 +23,12 @@ const providers = [
     PostgresEmployeeRepository,
     PostgresProductRepository,
     PostgresShipperRepository,
+    MongoOrderRepository,
     OrderMapper,
     DetailsMapper,
     InMemoryEventBus,
     {
-        provide: ORDER_REPOSITORY,
+        provide: NORTHWIND_ORDER_REPOSITORY,
         useExisting: PostgresOrderRepository
     },
     {
@@ -44,7 +47,10 @@ const providers = [
         provide: PRODUCT_REPOSITORY,
         useExisting: PostgresProductRepository
     },
-    
+    {
+        provide: SOUTHWIND_ORDER_REPOSITORY,
+        useExisting: MongoOrderRepository
+    }
 ]
 
 @Module({

@@ -1,13 +1,5 @@
+import { DetailSummary } from "./DetailSummary";
 
-export interface DetailSummary {
-    product: {
-        productId: number;
-        productName: string;
-    };
-    unitPrice: number;
-    quantity: number;
-    discount: number;
-}
 
 export interface OrderSummary {
     orderId: any;
