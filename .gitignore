@@ -37,3 +37,7 @@ lerna-debug.log*
 northwind-db/files
 
 clean-architecture-examples/part-3-domain-full-design-with-ddd/node_modules
+performance-tests/venv
+performance-tests/__pycache__
+stress-tests/venv
+stress-tests/__pycache__
