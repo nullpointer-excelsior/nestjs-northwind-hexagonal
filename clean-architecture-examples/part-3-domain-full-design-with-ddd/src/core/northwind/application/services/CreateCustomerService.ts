@@ -1,6 +1,5 @@
 import { CreateCustomerDto } from "../../../shared/dto/CreateCustomerDto";
 import { DomainException } from "../../../shared/error/DomainException";
-import { IdGenerator } from "../../../domain/ports/inbound/IdGenerator";
 import { Customer } from "../../domain/model/entities/Customer";
 import { CustomerRepository } from "../../domain/ports/outbound/CustomerRepository";
 import { UserCustomerRepository } from "../../domain/ports/outbound/UserCustomerRepository";
@@ -11,7 +10,6 @@ export class CreateCustomerService implements CreateCustomer {
     constructor(
         private readonly customer: CustomerRepository,
         private readonly user: UserCustomerRepository,
-        private readonly id: IdGenerator
     ) { }
 
     async create(createCustomer: CreateCustomerDto): Promise<Customer> {

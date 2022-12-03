@@ -1,0 +1,22 @@
+services:
+  locust-master:
+    image: locustio/locust
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master -H http://locust-master:8089
+    networks:
+      - db
+  
+  locust-worker:
+    image: locustio/locust
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+    networks:
+      - db
+
+networks:
+  db:
+    driver: bridge
