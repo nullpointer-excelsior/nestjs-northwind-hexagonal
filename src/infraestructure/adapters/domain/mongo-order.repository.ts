@@ -1,4 +1,5 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Customer } from "../../../core/domain/Customer";
 import { Employee } from "../../../core/domain/Employee";
@@ -6,14 +7,14 @@ import { Order } from "../../../core/domain/Order";
 import { OrderRepository } from "../../../core/domain/ports/outbound/OrderRepository";
 import { Product } from "../../../core/domain/Product";
 import { Detail } from "../../../core/domain/vo/Detail";
-import { OrderDocument } from "../../persistence/southwind-database/model/order.document";
-import { ORDER_MODEL } from "../../persistence/southwind-database/southwind-database.module";
+import { ShippingLocation } from "../../../core/domain/vo/ShippingLocation";
+import { OrderDocument } from "../../persistence/southwind-database/model/order.schema";
 
 
 @Injectable()
 export class MongoOrderRepository implements OrderRepository {
 
-    constructor(@Inject(ORDER_MODEL) private model: Model<OrderDocument>,) { }
+    constructor(@InjectModel('Order') private model: Model<OrderDocument>) {}
 
     async save(order: Order): Promise<number> {
         const orderCreated = new this.model({
@@ -48,20 +49,36 @@ export class MongoOrderRepository implements OrderRepository {
     }
 
     map(doc: OrderDocument) {
+       
         const order = new Order()
         order.orderDate = new Date()
+        
         order.customer = doc.customer as Customer
         order.employee = doc.employee as Employee
+       
         order.details = doc.details.map(d => new Detail({
             discount: d.discount,
             product: d.product as Product,
             quantity: d.quantity,
             unitPrice: d.unitPrice
         }))
-        order.shippingLocation = doc.shippingLocation
-        order.shipper = doc.shipper
+
+        order.shipper = {
+            shipperId:+doc.shipper.shipperId ,
+            companyName:doc.shipper.companyName.toString(),
+            phone:doc.shipper.phone
+        }
+
+        order.shippingLocation = new ShippingLocation (
+            doc.shippingLocation.name,
+            doc.shippingLocation.address,
+            doc.shippingLocation.city,
+            doc.shippingLocation.region,
+            doc.shippingLocation.country,
+        )
         order.freight = doc.freight
         order.shippedDate = doc.shippedDate
+
         return order
     }
 

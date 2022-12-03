@@ -14,4 +14,8 @@ export class PostgresCustomerRepository implements CustomerRepository {
         return this.repository.findOneBy({ customerId: id})
     }
 
+    findAll() {
+        return this.repository.find()
+    }
+
 }

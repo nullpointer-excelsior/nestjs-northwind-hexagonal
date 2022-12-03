@@ -14,4 +14,8 @@ export class PostgresEmployeeRepository implements EmployeeRepository {
         return this.repository.findOneBy({ employeeId: id})
     }
 
+    async findAll(){
+        return this.repository.find()
+    }
+
 }

@@ -6,8 +6,8 @@ export class ProductService {
 
     async updateProductStock(productId: number, unitsToDiscount: number) { 
         const product = await this.product.findById(productId)
-        product.unitsInStock = product.unitsInStock - unitsToDiscount
-        product.unitsOnOrder = product.unitsOnOrder + unitsToDiscount
-        this.product.update(product)
+        const unitsInStock = product.unitsInStock - unitsToDiscount
+        const unitsOnOrder = product.unitsOnOrder + unitsToDiscount
+        this.product.updateStock(product.productId, unitsInStock, unitsOnOrder)
     }
 }

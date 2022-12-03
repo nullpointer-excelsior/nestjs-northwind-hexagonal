@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { timeStamp } from "console";
 import { Repository } from "typeorm";
 import { ShipperRepository } from "../../../core/domain/ports/outbound/ShipperRepository";
 import { Shipper } from "../../../core/domain/Shipper";
@@ -12,5 +13,9 @@ export class PostgresShipperRepository  implements ShipperRepository {
 
     async findById(id: any): Promise<Shipper> {
         return this.repository.findOneBy({ shipperId: id})
+    }
+
+    async findAll(){
+        return this.repository.find()
     }
 }

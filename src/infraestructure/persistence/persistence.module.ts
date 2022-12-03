@@ -25,14 +25,14 @@ import { SouthwindDatabaseModule } from './southwind-database/southwind-database
       OrdersEntity,
       OrderDetailsEntity
     ]),
-    SouthwindDatabaseModule
+    SouthwindDatabaseModule,
   ],
   exports: [
     NorthwindDatabaseModule,
     SouthwindDatabaseModule,
     TypeOrmModule.forFeature([
       ShippersEntity,
-  ])
+    ]),
   ]
 })
 export class PersistenceModule { }
