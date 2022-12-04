@@ -1,5 +1,6 @@
+import { Logger } from "@nestjs/common";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
-import { PurchaseUseCases } from "../../../usecases/services/PurchaseUseCases";
+import { PurchaseUseCases } from "../../../services/PurchaseUseCases";
 import { CreateOrderCommand } from "../CreateOrderCommand";
 
 @CommandHandler(CreateOrderCommand)

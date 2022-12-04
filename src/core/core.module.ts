@@ -7,19 +7,21 @@ import { CustomerRepository } from './domain/ports/outbound/CustomerRepository';
 import { EmployeeRepository } from './domain/ports/outbound/EmployeeRepository';
 import { ShipperRepository } from './domain/ports/outbound/ShipperRepository';
 import { OrderService } from './domain/services/OrderService';
-import { CatalogUseCases } from './application/usecases/services/CatalogUseCases';
+import { CatalogUseCases } from './application/services/CatalogUseCases';
 import { InMemoryEventBus } from '../infraestructure/adapters/eventbus/in-memory-event-bus.service';
 import { DomainEventBus } from './shared/DomainEventBus';
-import { StockUpdaterUseCase } from './application/usecases/subscribers/StockUpdaterUseCase';
 import { ProductService } from './domain/services/ProductService';
-import { CompanySuppliersUseCases } from './application/usecases/services/CompanySuppliersUseCases';
-import { CompanyUseCases } from './application/usecases/services/CompanyUseCases';
-import { CustomerPortfolioUseCases } from './application/usecases/services/CustomerPortfolioUseCases';
-import { PurchaseUseCases } from './application/usecases/services/PurchaseUseCases';
-import { SaveOrderForReadUseCase } from './application/usecases/subscribers/SaveOrderForReadUseCase';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CreateOrderHandler } from './application/api/commands/handlers/CreateOrderHandler';
-import { OrdersQueryHandler } from './application/api/queries/handlers/OrdersQueryHandler';
+import { CreateOrderHandler } from './application/entrypoint/commands/handlers/CreateOrderHandler';
+import { OrdersQueryHandler } from './application/entrypoint/queries/handlers/OrdersQueryHandler';
+import { EventBusPublisher } from './domain/ports/inbound/EventBusPublisher';
+import { EventBusPublisherService } from '../infraestructure/adapters/eventbus/event-bus-publisher.service';
+import { OrderCreatedHandler } from './application/entrypoint/events/handlers/OrderCreatedHandler';
+import { CompanySuppliersUseCases } from './application/services/CompanySuppliersUseCases';
+import { CompanyUseCases } from './application/services/CompanyUseCases';
+import { CustomerPortfolioUseCases } from './application/services/CustomerPortfolioUseCases';
+import { StockUseCases } from './application/services/StockUseCases';
+import { PurchaseUseCases } from './application/services/PurchaseUseCases';
 
 export const EVENTBUS = 'EVENTBUS'
 
@@ -28,10 +30,11 @@ const providers = [
   CompanySuppliersUseCases,
   CompanyUseCases,
   CustomerPortfolioUseCases,
-  StockUpdaterUseCase,
-  SaveOrderForReadUseCase,
+  StockUseCases,
   CreateOrderHandler,
-  OrdersQueryHandler
+  OrdersQueryHandler,
+  OrderCreatedHandler,
+  EventBusPublisherService
 ]
 
 @Module({
@@ -50,7 +53,7 @@ const providers = [
         employee: EmployeeRepository,
         shipper: ShipperRepository,
         product: ProductRepository,
-        eventbus: DomainEventBus
+        eventbus: EventBusPublisher
       ) => new OrderService(order, customer, employee, shipper, product, eventbus),
       inject: [
         ORDER_REPOSITORY,
@@ -75,7 +78,7 @@ const providers = [
     },
     {
       provide: EVENTBUS,
-      useExisting: InMemoryEventBus
+      useExisting: EventBusPublisherService
     }
   ],
   exports: [
@@ -87,14 +90,14 @@ const providers = [
 })
 export class CoreModule {
 
-  constructor(
-    @Inject(EVENTBUS) private eventbus: DomainEventBus,
-    stock: StockUpdaterUseCase,
-    orderSummary: SaveOrderForReadUseCase
-  ) {
-    this.eventbus.subscribe(stock)
-    this.eventbus.subscribe(orderSummary)
-  }
+  // constructor(
+  //   @Inject(EVENTBUS) private eventbus: DomainEventBus,
+  //   stock: StockUpdaterUseCase,
+  //   orderSummary: SaveOrderForReadUseCase
+  // ) {
+  //   this.eventbus.subscribe(stock)
+  //   this.eventbus.subscribe(orderSummary)
+  // }
 
 }
 

@@ -1,14 +1,13 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from "@nestjs/common";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Paginated } from "../../../core/application/services/Paginated";
-import { PurchaseUseCases } from "../../../core/application/usecases/services/PurchaseUseCases";
+import { Paginated } from "../../../core/application/utils/Paginated";
 import { GlobalExceptionFilter } from "../exception-filters/global-exception.filter";
 import { CreateOrderRequest } from "../model/create-order.request";
 import { OrderCreatedDto } from "../../../core/shared/dto/OrderCreatedDto"
 import { Order } from "../../../core/domain/Order";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { CreateOrderCommand } from "../../../core/application/api/commands/CreateOrderCommand";
-import { OrdersQuery } from "../../../core/application/api/queries/OrdersQuery";
+import { CreateOrderCommand } from "../../../core/application/entrypoint/commands/CreateOrderCommand";
+import { OrdersQuery } from "../../../core/application/entrypoint/queries/OrdersQuery";
 
 @ApiTags('Purchases')
 @UseFilters(GlobalExceptionFilter)

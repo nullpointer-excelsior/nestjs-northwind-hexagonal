@@ -9,6 +9,7 @@ import { EmployeeRepository } from "../ports/outbound/EmployeeRepository";
 import { OrderRepository } from "../ports/outbound/OrderRepository";
 import { ProductRepository } from "../ports/outbound/ProductRepository";
 import { ShipperRepository } from "../ports/outbound/ShipperRepository";
+import { EventBusPublisher } from "../ports/inbound/EventBusPublisher";
 
 export class OrderService {
 
@@ -18,7 +19,7 @@ export class OrderService {
         private readonly employee: EmployeeRepository,
         private readonly shipper: ShipperRepository,
         private readonly product: ProductRepository,
-        private readonly eventbus: DomainEventBus
+        private readonly eventbus: EventBusPublisher
     ) { }
 
     async create(createorder: CreateOrderDto) {

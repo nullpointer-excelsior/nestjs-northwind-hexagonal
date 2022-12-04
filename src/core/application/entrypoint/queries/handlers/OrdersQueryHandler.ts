@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { Order } from "../../../../domain/Order";
-import { Paginated } from "../../../services/Paginated";
-import { PurchaseUseCases } from "../../../usecases/services/PurchaseUseCases";
+import { Paginated } from "../../../utils/Paginated";
+import { PurchaseUseCases } from "../../../services/PurchaseUseCases";
 import { OrdersQuery } from "../OrdersQuery";
 
 @QueryHandler(OrdersQuery)

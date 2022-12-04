@@ -1,8 +1,8 @@
-import { Order } from "../../../domain/Order";
-import { OrderService } from "../../../domain/services/OrderService"
-import { CreateOrderDto } from "../../../shared/dto/CreateOrderDto"
-import { OrderCreatedDto } from "../../../shared/dto/OrderCreatedDto"
-import { Paginated } from "../../services/Paginated";
+import { Order } from "../../domain/Order";
+import { OrderService } from "../../domain/services/OrderService";
+import { CreateOrderDto } from "../../shared/dto/CreateOrderDto";
+import { OrderCreatedDto } from "../../shared/dto/OrderCreatedDto";
+import { Paginated } from "../utils/Paginated";
 
 export interface GetOrdersRequest {
     page: number;
