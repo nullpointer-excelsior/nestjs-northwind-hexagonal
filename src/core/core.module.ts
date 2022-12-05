@@ -1,6 +1,6 @@
 import { Inject, Module } from '@nestjs/common';
 import { PersistenceModule } from '../infraestructure/persistence/persistence.module';
-import { AdaptersModule, CUSTOMER_REPOSITORY, EMPLOYEE_REPOSITORY, NORTHWIND_ORDER_REPOSITORY, ORDER_REPOSITORY, PRODUCT_REPOSITORY, SHIPPER_REPOSITORY } from '../infraestructure/adapters/adapters.module';
+import { AdaptersModule, CUSTOMER_REPOSITORY, EMPLOYEE_REPOSITORY, ORDER_REPOSITORY, PRODUCT_REPOSITORY, SHIPPER_REPOSITORY } from '../infraestructure/adapters/adapters.module';
 import { ProductRepository } from './domain/ports/outbound/ProductRepository';
 import { OrderRepository } from './domain/ports/outbound/OrderRepository';
 import { CustomerRepository } from './domain/ports/outbound/CustomerRepository';

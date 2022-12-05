@@ -9,7 +9,6 @@ import { ProductEntity } from './northwind-database/entities/product.entity';
 import { ShippersEntity } from './northwind-database/entities/shippers.entity';
 import { SupplierEntity } from './northwind-database/entities/supplier.entity';
 import { NorthwindDatabaseModule } from './northwind-database/northwind-database.module';
-import { SouthwindDatabaseModule } from './southwind-database/southwind-database.module';
 
 
 @Module({
@@ -25,11 +24,9 @@ import { SouthwindDatabaseModule } from './southwind-database/southwind-database
       OrdersEntity,
       OrderDetailsEntity
     ]),
-    SouthwindDatabaseModule,
   ],
   exports: [
     NorthwindDatabaseModule,
-    SouthwindDatabaseModule,
     TypeOrmModule.forFeature([
       ShippersEntity,
     ]),
