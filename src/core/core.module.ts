@@ -12,11 +12,11 @@ import { InMemoryEventBus } from '../infraestructure/adapters/eventbus/in-memory
 import { DomainEventBus } from './shared/DomainEventBus';
 import { ProductService } from './domain/services/ProductService';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CreateOrderHandler } from './application/entrypoint/commands/handlers/CreateOrderHandler';
-import { OrdersQueryHandler } from './application/entrypoint/queries/handlers/OrdersQueryHandler';
+import { CreateOrderHandler } from './application/features/commands/handlers/CreateOrderHandler';
+import { OrdersQueryHandler } from './application/features/queries/handlers/OrdersQueryHandler';
 import { EventBusPublisher } from './domain/ports/inbound/EventBusPublisher';
 import { EventBusPublisherService } from '../infraestructure/adapters/eventbus/event-bus-publisher.service';
-import { OrderCreatedHandler } from './application/entrypoint/events/handlers/OrderCreatedHandler';
+import { OrderCreatedHandler } from './application/features/events/handlers/OrderCreatedHandler';
 import { CompanySuppliersUseCases } from './application/services/CompanySuppliersUseCases';
 import { CompanyUseCases } from './application/services/CompanyUseCases';
 import { CustomerPortfolioUseCases } from './application/services/CustomerPortfolioUseCases';

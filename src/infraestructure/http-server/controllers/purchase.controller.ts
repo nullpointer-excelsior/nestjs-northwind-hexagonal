@@ -6,8 +6,8 @@ import { CreateOrderRequest } from "../model/create-order.request";
 import { OrderCreatedDto } from "../../../core/shared/dto/OrderCreatedDto"
 import { Order } from "../../../core/domain/Order";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { CreateOrderCommand } from "../../../core/application/entrypoint/commands/CreateOrderCommand";
-import { OrdersQuery } from "../../../core/application/entrypoint/queries/OrdersQuery";
+import { CreateOrderCommand } from "../../../core/application/features/commands/CreateOrderCommand";
+import { OrdersQuery } from "../../../core/application/features/queries/OrdersQuery";
 
 @ApiTags('Purchases')
 @UseFilters(GlobalExceptionFilter)
